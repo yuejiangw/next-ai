@@ -9,7 +9,8 @@ import { PromptTemplate } from "langchain/prompts";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 
 
-const chat = async (query, filePath = "./uploads/hbs-lean-startup.pdf") => {
+const chat = async (query, filePath = "./uploads/file.pdf") => {
+    console.log(process.env.REACT_APP_OPENAI_API_KEY);
     // step 1: document loading
     const loader = new PDFLoader(filePath);
 
@@ -49,13 +50,11 @@ const chat = async (query, filePath = "./uploads/hbs-lean-startup.pdf") => {
 
 
     const template = `Use the following pieces of context to answer the question at the end.
-If you don't know the answer, just say that you don't know, don't try to make up an answer.
-Use three sentences maximum and keep the answer as concise as possible.
-
-
-{context}
-Question: {question}
-Helpful Answer:`;
+    If you don't know the answer, just say that you don't know, don't try to make up an answer.
+    Use three sentences maximum and keep the answer as concise as possible.
+    {context}
+    Question: {question}
+    Helpful Answer:`;
 
 
     const chain = RetrievalQAChain.fromLLM(model, vectorStore.asRetriever(), {

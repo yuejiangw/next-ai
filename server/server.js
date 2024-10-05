@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import multer from "multer";
 import chat from "./chat.js";
+import fs from 'fs';
+import path from 'path';
 
 dotenv.config();
 
@@ -48,8 +50,25 @@ app.get("/", (req, res) => {
 
 
 app.post("/upload", upload.single("file"), (req, res) => {
-    filePath = req.file.path;
-    res.send(filePath + "upload successfully.");
+    if (!req.file) {
+        return res.status(400).send('No file uploaded');
+    }
+
+    // Get the temporary file path and the new file path
+    const tempPath = req.file.path;
+    console.log(tempPath);
+    const targetPath = path.join('uploads', 'file.pdf');
+
+    try {
+        // Rename the uploaded file to 'file.pdf'
+        fs.renameSync(tempPath, targetPath);
+
+        // Respond to the client
+        res.send('File uploaded and renamed to file.pdf');
+    } catch (error) {
+        console.error('Error renaming file:', error);
+        res.status(500).send('Error renaming the file.');
+    }
 });
 
 
