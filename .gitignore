@@ -133,6 +133,8 @@ dist
 
 .vscode/
 
+uploads/
+
 # yarn v2
 .yarn/cache
 .yarn/unplugged
