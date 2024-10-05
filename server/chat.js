@@ -44,7 +44,7 @@ const chat = async (query, filePath = "./uploads/file.pdf") => {
 
     // step 5: question & answer
     const model = new ChatOpenAI({
-        modelName: "gpt-3.5-turbo",
+        modelName: "gpt-4o-mini",
         openAIApiKey: process.env.REACT_APP_OPENAI_API_KEY,
     });
 
