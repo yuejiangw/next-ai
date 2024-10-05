@@ -10,7 +10,6 @@ import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 
 
 const chat = async (query, filePath = "./uploads/file.pdf") => {
-    console.log(process.env.REACT_APP_OPENAI_API_KEY);
     // step 1: document loading
     const loader = new PDFLoader(filePath);
 
