@@ -6,12 +6,13 @@ import chat from "./chat.js";
 import fs from 'fs';
 import path from 'path';
 
+// Load values from .env file
 dotenv.config();
 
-
+// Use Express framework
 const app = express();
 
-
+// Enable cross-origin
 app.use(cors());
 
 
@@ -37,18 +38,13 @@ const PORT = process.env.PORT || 8080;
 let filePath;
 
 
-// RESTful - what does the API do? You should be able to describe it in one sentence.
-// GET/POST/DELETE/PATCH/UDPATE
-// ststua code 200, 401, 404, 500
-// input paylod? param?
-// output
-
-
+// Healthcheck, should return 'healthy'
 app.get("/", (req, res) => {
     res.send("healthy");
 });
 
 
+// Upload a PDF file, and store it as '/upload/file.pdf'
 app.post("/upload", upload.single("file"), (req, res) => {
     if (!req.file) {
         return res.status(400).send('No file uploaded');
